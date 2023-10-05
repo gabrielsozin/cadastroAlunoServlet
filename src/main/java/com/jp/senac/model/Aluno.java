@@ -21,6 +21,16 @@ public class Aluno {
 	}
 
 
+	public String getMatricula() {
+		return matricula;
+	}
+
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+
+
 	public int getId() {
 		return id;
 	}

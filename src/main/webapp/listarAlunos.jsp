@@ -22,7 +22,7 @@
 	
 	Clique <a href="cadastrarAluno.jsp">aqui</a>para cadastrar um aluno
 	
-	<% List<Aluno> listaAlunos = (List<Aluno>) session.getAttribute("listaAlunos"); %>
+	<% List<Aluno> listaAlunos = (List<Aluno>) request.getAttribute("listaAlunos"); %>
 	
 	<% if(listaAlunos == null){  %>
 		<h3> Nenhum aluno cadastrado</h3>
@@ -31,7 +31,8 @@
 	 <h2>Alunos cadastrados</h2>
 	 <table border="1">
 	 <tr>
-	 <th>Detalhar</th>
+	 <th>Detalhar</th>	
+	 <th>Matricula</th>
 	 <th>id</th>
 	 <th>Nome</th>
 	 <th>Idade</th>
@@ -42,6 +43,7 @@
 	 <%for (Aluno aluno: listaAlunos){ %>
 	 <tr>
 	 	<td><a href="DetalharServlet?nome=<%=aluno.getNome()%>">Detalhar</a>
+	 	<td><%=aluno.getMatricula()%></td>
 	 	<td><%=aluno.getId()%></td>
 	 	<td><%=aluno.getNome()%></td>
 	 	<td><%=aluno.getIdade()%></td>

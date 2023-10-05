@@ -19,6 +19,9 @@
 <% Aluno aluno = (Aluno) request.getAttribute("aluno"); %>
 <h2> Aluno cadastrado</h2>
 
+Matrícula: <%=aluno.getMatricula() %>
+<br><br>
+
 ID: <%=aluno.getId() %>
 <br><br>
 
