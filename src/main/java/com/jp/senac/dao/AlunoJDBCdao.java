@@ -75,44 +75,76 @@ public class AlunoJDBCdao {
 		return alunos;
 	
 		}
+	
+		
+	
+	public Aluno PesquisarPorId (int id)  {
+		
+		String query = "select * from alunos where id=?";
+		
+		Aluno aluno = null;
+		
+		try {
+			Connection con = getConexao();
+			PreparedStatement pst = con.prepareStatement(query);
+			pst.setInt(1, id);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				
+				String nome = rs.getString(2);
+				String idade = rs.getString(3);
+				String semestre = rs.getString(4);
+				String genero = rs.getString(5);				
+				String matricula = rs.getString(6);
+				aluno = new Aluno(nome, idade, semestre, genero, id, matricula);
+			}
+			rs.close();
+			pst.close();
+			con.close();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return aluno;
+		
+	}
 
-//	//abaixo exemplo de criação das classes
-//	public Aluno pesquisarPorId(Intenger id) {
-//	
-//		String query = "";
-//		
-//	}
-//
-//	public Aluno excluirAluno(Aluno aluno) {
-//		String delete = "Delete from aluno WHERE (id = ?)";
-//	try {
-//		Connection con = getConexao();
-//		PreparedStatement pst = con.prepareStatement(delete);
-//		pst.setInt(1, Id);
-//		pst.executeUpdate();
-//		pst.close();
-//		con.close();
-//	} catch (ClassNotFoundException e){
-//		e.printStackTrace();
-//	}
-//		
-//	
-//	
-//	}
-//	
-//	
-//	public Aluno cadastrarAluno (Aluno aluno) {
-//	
-//		String query = "";
-//		
-//		return null;
-//	
-//	}
-//	
-//	public Aluno AlterarAluno (Aluno aluno) {
-//		
-//		String query = "update";
-//		
-//		return null;
-//	}
+
+	
+	public void AlterarAluno (Aluno aluno)  {
+		
+		String query = "update alunos set nome = ?, idade = ?,semestre = ?, genero = ? where id=?";
+		try {
+			Connection con = getConexao();
+			PreparedStatement pst = con.prepareStatement(query);
+			pst.setString(1, aluno.getNome());
+			pst.setString(2, aluno.getIdade());
+			pst.setString(3, aluno.getSemestre());
+			pst.setString(4, aluno.getGenero());
+			pst.setInt(5, aluno.getId());
+			pst.executeUpdate();
+			pst.close();
+			con.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public void excluirAluno(int id) throws SQLException {
+		String delete = "delete from alunos WHERE id =?";
+	try {
+		Connection con = getConexao();
+		PreparedStatement pst = con.prepareStatement(delete);
+		pst.setInt(1, id);
+		pst.executeUpdate();
+		pst.close();
+		con.close();
+	} catch (ClassNotFoundException e){
+		e.printStackTrace();
+	}
+		
+	}
 }

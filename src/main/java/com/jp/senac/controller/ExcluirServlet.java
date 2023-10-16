@@ -1,15 +1,14 @@
 package com.jp.senac.controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.sql.SQLException;
 
-import com.jp.senac.model.Aluno;
+import com.jp.senac.dao.AlunoJDBCdao;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 
 public class ExcluirServlet extends HttpServlet {
@@ -20,24 +19,19 @@ public class ExcluirServlet extends HttpServlet {
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String nome = request.getParameter("nome");
+		int id = Integer.parseInt(request.getParameter("id"));
 		
-		HttpSession session = request.getSession();
+		AlunoJDBCdao dao = new AlunoJDBCdao();
 		
-		@SuppressWarnings("unchecked")
-		List<Aluno> listaAlunos = (List<Aluno>) session.getAttribute("listaAlunos");
+		try {
+			dao.excluirAluno(id);
 		
-		Aluno aluno = null;
-		
-		for(Aluno a : listaAlunos) {
-			if(a.getNome().toString().equals(nome)) {
-				aluno = a;
-			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
 		}
-		
-		listaAlunos.remove(aluno);
-		session.setAttribute("listaAlunos", listaAlunos);
-		request.getRequestDispatcher("listarAlunos.jsp").forward(request, response);
+	
+		request.getRequestDispatcher("ListarServlet").forward(request, response);
 	}
 
 	

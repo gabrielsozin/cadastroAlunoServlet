@@ -37,8 +37,8 @@ Genero: <%=aluno.getGenero() %>
 Semetre: <%=aluno.getSemestre() %>
 <br><br>
 
-<input type="button" onclick="javascript:location.href='listarAlunos.jsp'" value="Confirmar">
-<a href="AlterarServlet?nome=<%=aluno.getNome() %>">Alterar</a>
+<input type="button" onclick="javascript:location.href='ListarServlet'" value="Confirmar">
+<a href="AlterarServlet?id=<%=aluno.getId() %>">Alterar</a>
 
 </body>
 </html>

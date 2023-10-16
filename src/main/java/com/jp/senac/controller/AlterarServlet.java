@@ -1,15 +1,14 @@
 package com.jp.senac.controller;
 
 import java.io.IOException;
-import java.util.List;
 
+import com.jp.senac.dao.AlunoJDBCdao;
 import com.jp.senac.model.Aluno;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 
 public class AlterarServlet extends HttpServlet {
@@ -18,24 +17,14 @@ public class AlterarServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String nome = request.getParameter("nome");
+		int id = Integer.parseInt(request.getParameter("id"));
 		
-		//Recuperar a minha sessão
-		HttpSession session = request.getSession();
-		@SuppressWarnings("unchecked")
-		List<Aluno> listaAlunos = (List<Aluno>) session.getAttribute("listaAlunos");
+		AlunoJDBCdao dao = new AlunoJDBCdao();
 		
-		//Aluno aluno = dao.FindById
-		//Recuperando o aluno que tem o nome informado 
+		Aluno aluno = dao.PesquisarPorId(id);
 		
-		Aluno aluno = null;
-		for(Aluno a : listaAlunos) {
-			if(a.getNome().toString().equals(nome)) {
-				aluno = a;
-			}
-		}
-				
 		request.setAttribute("aluno", aluno);
+		
 		request.getRequestDispatcher("alterarAluno.jsp").forward(request, response);
 		
 		

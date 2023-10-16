@@ -42,14 +42,14 @@
 	 </tr>
 	 <%for (Aluno aluno: listaAlunos){ %>
 	 <tr>
-	 	<td><a href="DetalharServlet?nome=<%=aluno.getNome()%>">Detalhar</a>
+	 	<td><a href="DetalharServlet?id=<%=aluno.getId()%>">Detalhar</a>
 	 	<td><%=aluno.getMatricula()%></td>
 	 	<td><%=aluno.getId()%></td>
 	 	<td><%=aluno.getNome()%></td>
 	 	<td><%=aluno.getIdade()%></td>
 	 	<td><%=aluno.getGenero()%></td>
 	 	<td><%=aluno.getSemestre()%></td>
-	 	<td><a href="ExcluirServlet?nome=<%=aluno.getNome()%>">Excluir</a>
+	 	<td><a href="ExcluirServlet?id=<%=aluno.getId()%>">Excluir</a>
 	 <% } %>
 	 </table>
 	 
